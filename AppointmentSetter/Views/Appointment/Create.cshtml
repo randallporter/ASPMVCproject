@@ -1,0 +1,32 @@
+﻿@model AppointmentSetter.ViewModels.AppointmentViewModel
+
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create Appointment</h2>
+
+@using (Html.BeginForm("Create", "Appointment"))
+{
+    <div class="form-group">
+        @Html.LabelFor(e => e.Date)
+        @Html.TextBoxFor(e => e.Date, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(e => e.Time)
+        @Html.TextBoxFor(e => e.Time, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(e => e.AppointmentType)
+        @Html.DropDownListFor(e => e.AppointmentType, new SelectList(Model.AppointmentTypes, "ID", "Description"), "", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(e => e.Notes)
+        @Html.TextBoxFor(e => e.Notes, new { @class = "form-control" })
+    </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+
+}
+
