@@ -1,4 +1,5 @@
 ﻿using AppointmentSetter.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -12,5 +13,6 @@ namespace AppointmentSetter.ViewModels
         [Display(Name = "Appointment Type")]
         public int AppointmentType { get; set; }
         public IEnumerable<AppointmentType> AppointmentTypes { get; set; }
+        public DateTime StartTime{ get { return DateTime.Parse(string.Format("{0} {1}", Date, Time)); } }
     }
 }

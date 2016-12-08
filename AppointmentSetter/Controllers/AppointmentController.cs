@@ -1,7 +1,6 @@
 ﻿using AppointmentSetter.Models;
 using AppointmentSetter.ViewModels;
 using Microsoft.AspNet.Identity;
-using System;
 using System.Linq;
 using System.Web.Mvc;
 using WebApp.Models;
@@ -32,18 +31,16 @@ namespace AppointmentSetter.Controllers
         [HttpPost]
         public ActionResult Create(AppointmentViewModel viewModel)
         {
-            var appointmentSetter = _context.Users.Find(User.Identity.GetUserId());
-            DateTime apptDate = DateTime.Parse(string.Format("{0} {1}", viewModel.Date, viewModel.Time));
             AppointmentType apptType = _context.AppointmentTypes.Find(viewModel.AppointmentType);
 
             var appointment = new Appointment
             {
-                StartDate = apptDate,
-                AppointmentSetter = appointmentSetter,
+                StartDate = viewModel.StartTime,
+                AppointmentSetter = _context.Users.Find(User.Identity.GetUserId()),
                 appointmentType = apptType,
                 appointmentAttender = _context.AppointmentAttenders.First(),
                 Notes = viewModel.Notes,
-                EndDate = apptDate.Add(apptType.AppointmentLength)
+                EndDate = viewModel.StartTime.Add(apptType.AppointmentLength)
             };
 
             _context.Appointments.Add(appointment);
