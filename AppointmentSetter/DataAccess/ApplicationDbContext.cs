@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using AppointmentSetter.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 
-namespace AppointmentSetter.Models
+namespace AppointmentSetter.DataAccess
 {
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
