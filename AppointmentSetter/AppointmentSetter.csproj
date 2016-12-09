@@ -172,7 +172,10 @@
     <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="DataAccess\ApplicationUserRepository.cs" />
+    <Compile Include="DataAccess\AppointmentAttenderRepository.cs" />
     <Compile Include="DataAccess\AppointmentRepository.cs" />
+    <Compile Include="DataAccess\AppointmentTypeRepository.cs" />
     <Compile Include="DataAccess\IEntityRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

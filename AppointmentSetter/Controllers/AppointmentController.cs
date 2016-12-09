@@ -1,9 +1,9 @@
-﻿using AppointmentSetter.Models;
+﻿using AppointmentSetter.DataAccess;
+using AppointmentSetter.Models;
 using AppointmentSetter.ViewModels;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -12,11 +12,19 @@ namespace AppointmentSetter.Controllers
 {
     public class AppointmentController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IAppointmentRepository _ar;
+        private readonly IAppointmentTypeRepository _atr;
+        private readonly IApplicationUserRepository _aur;
+        private readonly IAppointmentAttenderRepository _aar;
+        private readonly ApplicationDbContext context;
 
         public AppointmentController()
         {
-            _context = new ApplicationDbContext();
+            context = new ApplicationDbContext();
+            _ar = new AppointmentRepository(context);
+            _atr = new AppointmentTypeRepository(context);
+            _aur = new ApplicationUserRepository(context);
+            _aar = new AppointmentAttenderRepository(context);
         }
 
         [Authorize]
@@ -29,8 +37,7 @@ namespace AppointmentSetter.Controllers
 
             List<Appointment> items = new List<Appointment>();
 
-            items = _context.Appointments
-                .Include(e => e.appointmentType).Include(e=>e.AppointmentSetter).Include(e=>e.appointmentAttender)
+            items = _ar.AllIncluding(e => e.appointmentType, e => e.AppointmentSetter, e => e.appointmentAttender)
                 .Where(e => (e.AppointmentSetter.Id == id | e.appointmentAttender.appointmentAttender.Id == id) 
                 && e.StartDate > beginDate).ToList();
 
@@ -43,7 +50,7 @@ namespace AppointmentSetter.Controllers
         {
             var viewModel = new AppointmentViewModel
             {
-                AppointmentTypes = _context.AppointmentTypes.ToList()
+                AppointmentTypes = _atr.All.ToList()
             };
 
             return View(viewModel);
@@ -55,25 +62,26 @@ namespace AppointmentSetter.Controllers
         {
             if (!ModelState.IsValid)
             {
-                viewModel.AppointmentTypes = _context.AppointmentTypes.ToList();
+                viewModel.AppointmentTypes = _atr.All.ToList();
                 return View("Create", viewModel);
             }
                 
 
-            AppointmentType apptType = _context.AppointmentTypes.Find(viewModel.AppointmentType);
+            AppointmentType apptType = _atr.Find(viewModel.AppointmentType);
 
             var appointment = new Appointment
             {
                 StartDate = viewModel.GetStartTime(),
-                AppointmentSetter = _context.Users.Find(User.Identity.GetUserId()),
+                AppointmentSetter = _aur.getApplicationUser(User.Identity.GetUserId()),
                 appointmentType = apptType,
-                appointmentAttender = _context.AppointmentAttenders.First(),
+                //TO DO: this should become a drop down
+                appointmentAttender = _aar.AllIncluding(e=> e.appointmentAttender).First(),
                 Notes = viewModel.Notes,
                 EndDate = viewModel.GetStartTime().Add(apptType.AppointmentLength)
             };
 
-            _context.Appointments.Add(appointment);
-            _context.SaveChanges();
+            _ar.InsertOrUpdate(appointment);
+            _ar.Save();
 
             return RedirectToAction("Index", "Appointment");
         }
@@ -85,7 +93,7 @@ namespace AppointmentSetter.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Appointment appointment = _context.Appointments.Find(id);
+            Appointment appointment = _ar.Find((int)id);
             if (appointment == null)
             {
                 return HttpNotFound();
@@ -100,7 +108,7 @@ namespace AppointmentSetter.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AppointmentEditViewModel appointmentEdit = new AppointmentEditViewModel(_context.Appointments.Find(id));
+            AppointmentEditViewModel appointmentEdit = new AppointmentEditViewModel(_ar.Find((int)id));
             if (appointmentEdit == null)
             {
                 return HttpNotFound();
@@ -120,14 +128,14 @@ namespace AppointmentSetter.Controllers
 
             if (ModelState.IsValid)
             {
-                var appointment = _context.Appointments.Where(e => e.ID == appointmentEdit.ID)
-                    .Include(e => e.AppointmentSetter).Include(e => e.appointmentAttender).Include(e => e.appointmentType).First();
+                var appointment = _ar.AllIncluding(e => e.appointmentType, e => e.AppointmentSetter, e => e.appointmentAttender)
+                    .Where(e => e.ID == appointmentEdit.ID).First();
                 appointment.Notes = appointmentEdit.Notes;
                 appointment.StartDate = appointmentEdit.StartDate;
                 appointment.EndDate = appointmentEdit.EndDate;
 
-                _context.Entry(appointment).State = EntityState.Modified;
-                _context.SaveChanges();
+                _ar.InsertOrUpdate(appointment);
+                _ar.Save();
                 return RedirectToAction("Index");
             }
             return View(appointmentEdit);
@@ -140,7 +148,7 @@ namespace AppointmentSetter.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Appointment appointment = _context.Appointments.Find(id);
+            Appointment appointment = _ar.Find((int)id);
             if (appointment == null)
             {
                 return HttpNotFound();
@@ -153,9 +161,8 @@ namespace AppointmentSetter.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Appointment appointment = _context.Appointments.Find(id);
-            _context.Appointments.Remove(appointment);
-            _context.SaveChanges();
+            _ar.Delete(id);
+            _ar.Save();
             return RedirectToAction("Index");
         }
 
@@ -163,7 +170,7 @@ namespace AppointmentSetter.Controllers
         {
             if (disposing)
             {
-                _context.Dispose();
+                _ar.Dispose();
             }
             base.Dispose(disposing);
         }

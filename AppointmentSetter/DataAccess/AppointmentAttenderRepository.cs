@@ -6,38 +6,38 @@ using System.Linq.Expressions;
 
 namespace AppointmentSetter.DataAccess
 {
-    public class AppointmentRepository : IAppointmentRepository
+    public class AppointmentAttenderRepository : IAppointmentAttenderRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public AppointmentRepository(ApplicationDbContext context)
+        public AppointmentAttenderRepository(ApplicationDbContext context)
         {
             _context = context;
         }
-        public IQueryable<Appointment> All
+        public IQueryable<AppointmentAttender> All
         {
-            get { return _context.Appointments; }
+            get { return _context.AppointmentAttenders; }
         }
-        public IQueryable<Appointment> AllIncluding(params Expression<Func<Appointment, object>>[] includeProperties)
+        public IQueryable<AppointmentAttender> AllIncluding(params Expression<Func<AppointmentAttender, object>>[] includeProperties)
         {
-            IQueryable<Appointment> qry = _context.Appointments;
+            IQueryable<AppointmentAttender> qry = _context.AppointmentAttenders;
             foreach (var includeProperty in includeProperties)
             {
                 qry = qry.Include(includeProperty);
             }
             return qry;
         }
-        public Appointment Find(int ID)
+        public AppointmentAttender Find(int ID)
         {
-            return _context.Appointments.Find(ID);
+            return _context.AppointmentAttenders.Find(ID);
         }
 
-        public void InsertOrUpdate(Appointment entity)
+        public void InsertOrUpdate(AppointmentAttender entity)
         {
             if (entity.ID == default(int))
             {
                 //This will only mark main entity as added, not other FK entities attached. 
-                _context.Appointments.Add(entity);
+                _context.Entry(entity).State = EntityState.Added;
             }
             else
             {
@@ -47,8 +47,8 @@ namespace AppointmentSetter.DataAccess
 
         public void Delete(int id)
         { 
-            var ac = Find(id);
-            _context.Appointments.Remove(ac);
+            var entity = Find(id);
+            _context.AppointmentAttenders.Remove(entity);
         }
 
         public void Save()
@@ -62,7 +62,7 @@ namespace AppointmentSetter.DataAccess
         }
     }
 
-    public interface IAppointmentRepository : IEntityRepository<Appointment>
+    public interface IAppointmentAttenderRepository : IEntityRepository<AppointmentAttender>
     {
         //Added methods specific to IAppointmentRepo can go here
     }
