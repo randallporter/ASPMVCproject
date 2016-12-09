@@ -37,7 +37,7 @@ namespace AppointmentSetter.DataAccess
             if (entity.ID == default(int))
             {
                 //This will only mark main entity as added, not other FK entities attached. 
-                _context.Appointments.Add(entity);
+                _context.Entry(entity).State = EntityState.Added;
             }
             else
             {
