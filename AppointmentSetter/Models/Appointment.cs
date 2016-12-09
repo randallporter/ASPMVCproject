@@ -1,8 +1,7 @@
-﻿using AppointmentSetter.Models;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebApp.Models
+namespace AppointmentSetter.Models
 {
     public class Appointment
     {
@@ -19,9 +18,11 @@ namespace WebApp.Models
         public DateTime EndDate { get; set; }
 
         [Required]
+        [Display(Name = "Appointment Type")]
         public AppointmentType appointmentType { get; set; }
 
         [Required]
+        [Display(Name = "Appointment Requester")]
         public ApplicationUser AppointmentSetter { get; set; }
 
         [Required]

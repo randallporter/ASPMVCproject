@@ -1,0 +1,65 @@
+﻿@model List<AppointmentSetter.Models.Appointment>
+
+@{
+    ViewBag.Title = "My Appointment List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>My Appointment List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-hover table-striped">
+    <tbody>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.First().StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().appointmentType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Notes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().AppointmentSetter)
+            </th>
+            <th>
+            </th>
+        </tr>
+
+
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @String.Format("{0:f}", item.StartDate)
+                </td>
+                <td>
+                    @String.Format("{0:f}", item.EndDate)
+                </td>
+                <td>
+                    @item.appointmentType.Description
+                </td>
+                <td>
+                    @item.Notes
+                </td>
+                <td>
+                    @(item.AppointmentSetter != null ? item.AppointmentSetter.UserName : "")
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @*@Html.ActionLink("Details", "Details", new { id = item.ID }) |*@
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
-using WebApp.Models;
 
 namespace AppointmentSetter.Models
 {

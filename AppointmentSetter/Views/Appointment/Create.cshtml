@@ -13,14 +13,17 @@
     <div class="form-group">
         @Html.LabelFor(e => e.Date)
         @Html.TextBoxFor(e => e.Date, new { @class = "form-control" })
+        @Html.ValidationMessageFor(e => e.Date)
     </div>
     <div class="form-group">
         @Html.LabelFor(e => e.Time)
         @Html.TextBoxFor(e => e.Time, new { @class = "form-control" })
+        @Html.ValidationMessageFor(e => e.Time)
     </div>
     <div class="form-group">
         @Html.LabelFor(e => e.AppointmentType)
         @Html.DropDownListFor(e => e.AppointmentType, new SelectList(Model.AppointmentTypes, "ID", "Description"), "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(e => e.AppointmentType)
     </div>
     <div class="form-group">
         @Html.LabelFor(e => e.Notes)
@@ -30,3 +33,7 @@
 
 }
 
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

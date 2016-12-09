@@ -8,11 +8,21 @@ namespace AppointmentSetter.ViewModels
     public class AppointmentViewModel
     {
         public string Notes { get; set; }
+
+        [Required]
         public string Date { get; set; }
+
+        [Required]
         public string Time { get; set; }
-        [Display(Name = "Appointment Type")]
+
+        [Display(Name = "Appointment Type"), Required]
         public int AppointmentType { get; set; }
+
         public IEnumerable<AppointmentType> AppointmentTypes { get; set; }
-        public DateTime StartTime{ get { return DateTime.Parse(string.Format("{0} {1}", Date, Time)); } }
+
+        public DateTime GetStartTime()
+        {
+            return DateTime.Parse(string.Format("{0} {1}", Date, Time));
+        }
     }
 }
