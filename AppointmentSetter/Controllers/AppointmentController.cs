@@ -36,7 +36,7 @@ namespace AppointmentSetter.Controllers
             List<Appointment> items = new List<Appointment>();
 
             items = _ar.AllIncluding(e => e.appointmentType, e => e.AppointmentSetter)
-                .Where(e => (e.appointmentAttender.AppUserID == id | e.appointmentAttender.AppUserID == id) 
+                .Where(e => (e.appointmentAttender.AppUserID == id | e.AppointmentSetter.AppUserID == id) 
                 && e.StartDate > beginDate).ToList();
 
             return View(items);

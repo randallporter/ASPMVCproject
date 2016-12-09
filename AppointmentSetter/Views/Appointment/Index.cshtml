@@ -50,7 +50,7 @@
                     @item.Notes
                 </td>
                 <td>
-                    @(item.AppointmentSetter != null ? item.appointmentAttender.userName : "")
+                    @(item.AppointmentSetter != null ? item.AppointmentSetter.userName : "")
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |

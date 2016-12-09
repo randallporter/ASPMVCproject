@@ -1,4 +1,5 @@
-﻿using AppointmentSetter.Models;
+﻿using AppointmentSetter.DataAccess;
+using AppointmentSetter.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -154,7 +155,7 @@ namespace AppointmentSetter.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -163,6 +164,14 @@ namespace AppointmentSetter.Controllers
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                     //TODO ADD user insert
+                    var userRepo = new UserRepository(new AppointmentDBContext());
+                    var ApptUser = new User();
+                    ApptUser.AppUserID = user.Id;
+                    ApptUser.IsCustomer = true;
+                    ApptUser.userName = user.UserName;
+
+                    userRepo.InsertOrUpdate(ApptUser);
+                    userRepo.Save();
 
                     return RedirectToAction("Index", "Home");
                 }
