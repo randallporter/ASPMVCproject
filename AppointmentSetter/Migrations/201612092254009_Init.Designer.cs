@@ -7,13 +7,13 @@ namespace AppointmentSetter.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class OneTimeSeed : IMigrationMetadata
+    public sealed partial class Init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(OneTimeSeed));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201612080146351_OneTimeSeed"; }
+            get { return "201612092254009_Init"; }
         }
         
         string IMigrationMetadata.Source

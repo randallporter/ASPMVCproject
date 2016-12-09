@@ -6,33 +6,33 @@ using System.Linq.Expressions;
 
 namespace AppointmentSetter.DataAccess
 {
-    public class AppointmentAttenderRepository : IAppointmentAttenderRepository
+    public class UserRepository : IUserRepository
     {
-        private readonly ApplicationDbContext _context;
+        public AppointmentDBContext _context;
 
-        public AppointmentAttenderRepository(ApplicationDbContext context)
+        public UserRepository(AppointmentDBContext context)
         {
             _context = context;
         }
-        public IQueryable<AppointmentAttender> All
+        public IQueryable<User> All
         {
-            get { return _context.AppointmentAttenders; }
+            get { return _context.Users; }
         }
-        public IQueryable<AppointmentAttender> AllIncluding(params Expression<Func<AppointmentAttender, object>>[] includeProperties)
+        public IQueryable<User> AllIncluding(params Expression<Func<User, object>>[] includeProperties)
         {
-            IQueryable<AppointmentAttender> qry = _context.AppointmentAttenders;
+            IQueryable<User> qry = _context.Users;
             foreach (var includeProperty in includeProperties)
             {
                 qry = qry.Include(includeProperty);
             }
             return qry;
         }
-        public AppointmentAttender Find(int ID)
+        public User Find(int ID)
         {
-            return _context.AppointmentAttenders.Find(ID);
+            return _context.Users.Find(ID);
         }
 
-        public void InsertOrUpdate(AppointmentAttender entity)
+        public void InsertOrUpdate(User entity)
         {
             if (entity.ID == default(int))
             {
@@ -47,8 +47,8 @@ namespace AppointmentSetter.DataAccess
 
         public void Delete(int id)
         { 
-            var entity = Find(id);
-            _context.AppointmentAttenders.Remove(entity);
+            var ac = Find(id);
+            _context.Users.Remove(ac);
         }
 
         public void Save()
@@ -62,8 +62,8 @@ namespace AppointmentSetter.DataAccess
         }
     }
 
-    public interface IAppointmentAttenderRepository : IEntityRepository<AppointmentAttender>
+    public interface IUserRepository : IEntityRepository<User>
     {
-        //Added methods specific to IAppointmentRepo can go here
+        //Added methods specific to IUserRepository can go here
     }
 }

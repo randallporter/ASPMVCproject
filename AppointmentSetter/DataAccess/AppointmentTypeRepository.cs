@@ -8,9 +8,9 @@ namespace AppointmentSetter.DataAccess
 {
     public class AppointmentTypeRepository : IAppointmentTypeRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly AppointmentDBContext _context;
 
-        public AppointmentTypeRepository(ApplicationDbContext context)
+        public AppointmentTypeRepository(AppointmentDBContext context)
         {
             _context = context;
         }

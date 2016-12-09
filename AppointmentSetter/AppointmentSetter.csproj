@@ -49,6 +49,18 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="SimpleInjector, Version=3.3.2.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.3.3.2\lib\net45\SimpleInjector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SimpleInjector.Integration.Web, Version=3.3.2.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.Integration.Web.3.3.2\lib\net40\SimpleInjector.Integration.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SimpleInjector.Integration.Web.Mvc, Version=3.3.2.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.Integration.Web.Mvc.3.3.2\lib\net40\SimpleInjector.Integration.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Activities" />
     <Reference Include="System.Data" />
@@ -172,48 +184,36 @@
     <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="DataAccess\ApplicationUserRepository.cs" />
-    <Compile Include="DataAccess\AppointmentAttenderRepository.cs" />
+    <Compile Include="DataAccess\AppointmentDBContext.cs" />
+    <Compile Include="DataAccess\UserRepository.cs" />
     <Compile Include="DataAccess\AppointmentRepository.cs" />
     <Compile Include="DataAccess\AppointmentTypeRepository.cs" />
     <Compile Include="DataAccess\IEntityRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201612070619454_init.cs" />
-    <Compile Include="Migrations\201612070619454_init.Designer.cs">
-      <DependentUpon>201612070619454_init.cs</DependentUpon>
+    <Compile Include="Migrations\201612092254009_Init.cs" />
+    <Compile Include="Migrations\201612092254009_Init.Designer.cs">
+      <DependentUpon>201612092254009_Init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201612080134517_AppointmentAndAppointmentAttenderAndType.cs" />
-    <Compile Include="Migrations\201612080134517_AppointmentAndAppointmentAttenderAndType.Designer.cs">
-      <DependentUpon>201612080134517_AppointmentAndAppointmentAttenderAndType.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612080146351_OneTimeSeed.cs" />
-    <Compile Include="Migrations\201612080146351_OneTimeSeed.Designer.cs">
-      <DependentUpon>201612080146351_OneTimeSeed.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612080309474_AdminAccount.cs" />
-    <Compile Include="Migrations\201612080309474_AdminAccount.Designer.cs">
-      <DependentUpon>201612080309474_AdminAccount.cs</DependentUpon>
+    <Compile Include="Migrations\201612092310154_oneTimeSeed.cs" />
+    <Compile Include="Migrations\201612092310154_oneTimeSeed.Designer.cs">
+      <DependentUpon>201612092310154_oneTimeSeed.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AppointmentAttender.cs" />
     <Compile Include="Models\AppointmentType.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Appointment.cs" />
-    <Compile Include="DataAccess\ApplicationDbContext.cs" />
+    <Compile Include="DataAccess\ApplicationIdentityDbContext.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AppointmentEditViewModel.cs" />
     <Compile Include="ViewModels\AppointmentViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\aspnet-AppointmentSetter-20161206080335.mdf" />
-    <Content Include="App_Data\aspnet-AppointmentSetter-20161206080335_log.ldf">
-      <DependentUpon>aspnet-AppointmentSetter-20161206080335.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -272,6 +272,7 @@
     <Content Include="Views\Appointment\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>
@@ -283,17 +284,11 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201612070619454_init.resx">
-      <DependentUpon>201612070619454_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201612092254009_Init.resx">
+      <DependentUpon>201612092254009_Init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612080134517_AppointmentAndAppointmentAttenderAndType.resx">
-      <DependentUpon>201612080134517_AppointmentAndAppointmentAttenderAndType.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612080146351_OneTimeSeed.resx">
-      <DependentUpon>201612080146351_OneTimeSeed.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612080309474_AdminAccount.resx">
-      <DependentUpon>201612080309474_AdminAccount.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201612092310154_oneTimeSeed.resx">
+      <DependentUpon>201612092310154_oneTimeSeed.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

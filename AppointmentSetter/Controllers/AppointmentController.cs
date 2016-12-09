@@ -14,17 +14,15 @@ namespace AppointmentSetter.Controllers
     {
         private readonly IAppointmentRepository _ar;
         private readonly IAppointmentTypeRepository _atr;
-        private readonly IApplicationUserRepository _aur;
-        private readonly IAppointmentAttenderRepository _aar;
-        private readonly ApplicationDbContext context;
+        private readonly IUserRepository _ur;
+        private readonly AppointmentDBContext context;
 
         public AppointmentController()
         {
-            context = new ApplicationDbContext();
+            context = new AppointmentDBContext();
             _ar = new AppointmentRepository(context);
             _atr = new AppointmentTypeRepository(context);
-            _aur = new ApplicationUserRepository(context);
-            _aar = new AppointmentAttenderRepository(context);
+            _ur = new UserRepository(context);
         }
 
         [Authorize]
@@ -37,8 +35,8 @@ namespace AppointmentSetter.Controllers
 
             List<Appointment> items = new List<Appointment>();
 
-            items = _ar.AllIncluding(e => e.appointmentType, e => e.AppointmentSetter, e => e.appointmentAttender)
-                .Where(e => (e.AppointmentSetter.Id == id | e.appointmentAttender.appointmentAttender.Id == id) 
+            items = _ar.AllIncluding(e => e.appointmentType, e => e.AppointmentSetter)
+                .Where(e => (e.appointmentAttender.AppUserID == id | e.appointmentAttender.AppUserID == id) 
                 && e.StartDate > beginDate).ToList();
 
             return View(items);
@@ -68,14 +66,15 @@ namespace AppointmentSetter.Controllers
                 
 
             AppointmentType apptType = _atr.Find(viewModel.AppointmentType);
+            var aspUserID = User.Identity.GetUserId();
 
             var appointment = new Appointment
             {
                 StartDate = viewModel.GetStartTime(),
-                AppointmentSetter = _aur.getApplicationUser(User.Identity.GetUserId()),
+                AppointmentSetter = _ur.All.Where(e=>e.AppUserID == aspUserID).First(),
                 appointmentType = apptType,
                 //TO DO: this should become a drop down
-                appointmentAttender = _aar.AllIncluding(e=> e.appointmentAttender).First(),
+                appointmentAttender = _ur.All.Where(e=>e.IsCustomer == false).First(),
                 Notes = viewModel.Notes,
                 EndDate = viewModel.GetStartTime().Add(apptType.AppointmentLength)
             };

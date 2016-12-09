@@ -23,9 +23,9 @@ namespace AppointmentSetter.Models
 
         [Required]
         [Display(Name = "Appointment Requester")]
-        public ApplicationUser AppointmentSetter { get; set; }
+        public User AppointmentSetter { get; set; }
 
         [Required]
-        public AppointmentAttender appointmentAttender { get; set; }
+        public User appointmentAttender { get; set; }
     }
 }
