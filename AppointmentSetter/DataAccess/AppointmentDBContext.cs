@@ -5,9 +5,9 @@ namespace AppointmentSetter.DataAccess
 {
     public class AppointmentDBContext : DbContext
     {
-        public DbSet<Appointment> Appointments { get; set; }
-        public DbSet<AppointmentType> AppointmentTypes { get; set; }
-        public DbSet<User> Users { get; set; }
+        public virtual DbSet<Appointment> Appointments { get; set; }
+        public virtual DbSet<AppointmentType> AppointmentTypes { get; set; }
+        public virtual DbSet<User> Users { get; set; }
 
         public AppointmentDBContext() : base("AppointmentSetterDB")
         {

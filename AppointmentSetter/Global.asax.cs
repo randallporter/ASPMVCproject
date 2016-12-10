@@ -1,4 +1,5 @@
 ﻿using AppointmentSetter.DataAccess;
+using AppointmentSetter.Service;
 using SimpleInjector;
 using SimpleInjector.Integration.Web;
 using SimpleInjector.Integration.Web.Mvc;
@@ -30,6 +31,7 @@ namespace AppointmentSetter
             container.Register<IUserRepository, UserRepository>(Lifestyle.Scoped);
             container.Register<IAppointmentRepository, AppointmentRepository>(Lifestyle.Scoped);
             container.Register<IAppointmentTypeRepository, AppointmentTypeRepository>(Lifestyle.Scoped);
+            container.Register<IConflictChecker, ConflictChecker>(Lifestyle.Scoped);
 
             // This is an extension method from the integration package.
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());

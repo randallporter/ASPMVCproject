@@ -5,7 +5,7 @@ namespace AppointmentSetter.Service
 {
     interface IConflictChecker
     {
-        Appointment CheckAttenderConflict(User attender, DateTime start, TimeSpan length);
-        Appointment CheckSetterConflict(User setter, DateTime start, TimeSpan length);
+        Appointment GetAttenderConflict(User attender, DateTime start, DateTime end);
+        Appointment GetSetterConflict(User setter, DateTime start, DateTime end);
     }
 }

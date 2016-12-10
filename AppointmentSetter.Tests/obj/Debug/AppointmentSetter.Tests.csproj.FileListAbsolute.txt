@@ -90,7 +90,6 @@ C:\Users\chris_000\Desktop\School OIT\OIT\CST 356\labs\FinalProject\ASPMVCprojec
 C:\Users\chris_000\Desktop\School OIT\OIT\CST 356\labs\FinalProject\ASPMVCproject\AppointmentSetter.Tests\bin\Debug\Owin.dll
 C:\Users\chris_000\Desktop\School OIT\OIT\CST 356\labs\FinalProject\ASPMVCproject\AppointmentSetter.Tests\bin\Debug\Microsoft.Owin.Security.Cookies.dll
 C:\Users\chris_000\Desktop\School OIT\OIT\CST 356\labs\FinalProject\ASPMVCproject\AppointmentSetter.Tests\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
-C:\Users\chris_000\Desktop\School OIT\OIT\CST 356\labs\FinalProject\ASPMVCproject\AppointmentSetter.Tests\bin\Debug\EntityFramework.dll
 C:\Users\chris_000\Desktop\School OIT\OIT\CST 356\labs\FinalProject\ASPMVCproject\AppointmentSetter.Tests\bin\Debug\Microsoft.Owin.Host.SystemWeb.dll
 C:\Users\chris_000\Desktop\School OIT\OIT\CST 356\labs\FinalProject\ASPMVCproject\AppointmentSetter.Tests\bin\Debug\AppointmentSetter.pdb
 C:\Users\chris_000\Desktop\School OIT\OIT\CST 356\labs\FinalProject\ASPMVCproject\AppointmentSetter.Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
@@ -116,3 +115,8 @@ C:\Users\chris_000\Desktop\School OIT\OIT\CST 356\labs\FinalProject\ASPMVCprojec
 C:\Users\chris_000\Desktop\School OIT\OIT\CST 356\labs\FinalProject\ASPMVCproject\AppointmentSetter.Tests\bin\Debug\SimpleInjector.xml
 C:\Users\chris_000\Desktop\School OIT\OIT\CST 356\labs\FinalProject\ASPMVCproject\AppointmentSetter.Tests\bin\Debug\SimpleInjector.Integration.Web.xml
 C:\Users\chris_000\Desktop\School OIT\OIT\CST 356\labs\FinalProject\ASPMVCproject\AppointmentSetter.Tests\bin\Debug\SimpleInjector.Integration.Web.Mvc.xml
+C:\Users\chris_000\Desktop\School OIT\OIT\CST 356\labs\FinalProject\ASPMVCproject\AppointmentSetter.Tests\bin\Debug\FakeItEasy.dll
+C:\Users\chris_000\Desktop\School OIT\OIT\CST 356\labs\FinalProject\ASPMVCproject\AppointmentSetter.Tests\bin\Debug\nunit.framework.dll
+C:\Users\chris_000\Desktop\School OIT\OIT\CST 356\labs\FinalProject\ASPMVCproject\AppointmentSetter.Tests\bin\Debug\FakeItEasy.pdb
+C:\Users\chris_000\Desktop\School OIT\OIT\CST 356\labs\FinalProject\ASPMVCproject\AppointmentSetter.Tests\bin\Debug\FakeItEasy.xml
+C:\Users\chris_000\Desktop\School OIT\OIT\CST 356\labs\FinalProject\ASPMVCproject\AppointmentSetter.Tests\bin\Debug\nunit.framework.xml

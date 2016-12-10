@@ -15,11 +15,10 @@ namespace AppointmentSetter.Controllers
         private IAppointmentRepository _ar;
         private IAppointmentTypeRepository _atr;
         private IUserRepository _ur;
-        private AppointmentDBContext context;
 
         public AppointmentController(IAppointmentRepository ar, IAppointmentTypeRepository atr, IUserRepository ur)
         {
-            context = new AppointmentDBContext();
+            var context = new AppointmentDBContext();
             _ar = ar;
             _atr = atr;
             _ur = ur;
@@ -82,10 +81,33 @@ namespace AppointmentSetter.Controllers
                 EndDate = viewModel.GetStartTime().Add(apptType.AppointmentLength)
             };
 
+            //var conflictAppointmentAttender = new Service.ConflictChecker(_ar)
+            //    .GetAttenderConflict(appointment.appointmentAttender,
+            //    appointment.StartDate,
+            //    appointment.EndDate);
+            //var conflictAppointmentSetter = new Service.ConflictChecker(_ar)
+            //    .GetSetterConflict(appointment.appointmentAttender,
+            //    appointment.StartDate,
+            //    appointment.EndDate);
+
+
+            //if (conflictAppointmentAttender == null && conflictAppointmentSetter == null)
+            //{
+            //    _ar.InsertOrUpdate(appointment);
+            //    _ar.Save();
+            //    return RedirectToAction("Index", "Appointment");
+            //}
+            //else
+            //{
+            //    ViewBag.Error = "Conflict in Time, please select another time.";
+            //    viewModel.AppointmentTypes = _atr.All.ToList();
+            //    return View("Create", viewModel);
+            //}
+
             _ar.InsertOrUpdate(appointment);
             _ar.Save();
-
             return RedirectToAction("Index", "Appointment");
+
         }
 
         // GET: Appointments/Details/5
