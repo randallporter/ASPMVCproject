@@ -8,17 +8,17 @@ namespace AppointmentSetter.DataAccess
 {
     public class AppointmentTypeRepository : IAppointmentTypeRepository
     {
-        private AppointmentDBContext _context;
+        private IDbContext _context;
 
-        public AppointmentTypeRepository()
-        {
-
-        }
-
-        public void setContext(AppointmentDBContext context)
+        public AppointmentTypeRepository(IDbContext context)
         {
             _context = context;
         }
+
+        //public void setContext(AppointmentDBContext context)
+        //{
+        //    _context = context;
+        //}
 
         public IQueryable<AppointmentType> All
         {
@@ -42,7 +42,6 @@ namespace AppointmentSetter.DataAccess
         {
             if (entity.ID == default(int))
             {
-                //This will only mark main entity as added, not other FK entities attached. 
                 _context.Entry(entity).State = EntityState.Added;
             }
             else

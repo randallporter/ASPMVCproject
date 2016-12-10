@@ -23,7 +23,7 @@ namespace AppointmentSetter.Migrations
             AppointmentDBContext mycontext = new AppointmentDBContext();
             ApplicationUserManager manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
             var user = new ApplicationUser { Email = "admin@appointment.com", UserName = "admin@appointment.com" };
-            manager.Create(user, "PoIuYtR1@");
+            manager.Create(user, "Temp@55w0rd");
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             roleManager.Create(new IdentityRole("admin"));
             manager.AddToRole(user.Id, "admin");

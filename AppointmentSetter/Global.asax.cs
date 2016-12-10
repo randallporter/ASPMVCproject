@@ -32,6 +32,7 @@ namespace AppointmentSetter
             container.Register<IAppointmentRepository, AppointmentRepository>(Lifestyle.Scoped);
             container.Register<IAppointmentTypeRepository, AppointmentTypeRepository>(Lifestyle.Scoped);
             container.Register<IConflictChecker, ConflictChecker>(Lifestyle.Scoped);
+            container.Register<IDbContext, AppointmentDBContext>(Lifestyle.Scoped);
 
             // This is an extension method from the integration package.
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());

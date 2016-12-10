@@ -8,14 +8,9 @@ namespace AppointmentSetter.DataAccess
 {
     public class AppointmentRepository : IAppointmentRepository
     {
-        public AppointmentDBContext _context;
+        public IDbContext _context;
 
-        public AppointmentRepository()
-        {
-            
-        }
-
-        public void setContext(AppointmentDBContext context)
+        public AppointmentRepository(IDbContext context)
         {
             _context = context;
         }

@@ -1,10 +1,12 @@
-﻿using AppointmentSetter.Models;
+﻿using AppointmentSetter.DataAccess;
+using AppointmentSetter.Models;
 using System;
 
 namespace AppointmentSetter.Service
 {
-    interface IConflictChecker
+    public interface IConflictChecker
     {
+        //void SetDataRepo(IAppointmentRepository ar);
         Appointment GetAttenderConflict(User attender, DateTime start, DateTime end);
         Appointment GetSetterConflict(User setter, DateTime start, DateTime end);
     }

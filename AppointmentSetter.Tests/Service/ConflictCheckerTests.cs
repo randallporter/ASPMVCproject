@@ -40,7 +40,6 @@ namespace AppointmentSetter.Tests.Service
 
             var context = A.Fake<AppointmentDBContext>();
             var repoMock = A.Fake<IAppointmentRepository>();
-            repoMock.setContext(context);
             A.CallTo(() => repoMock.All).Returns(list); //Returns(set.AsQueryable<Appointment>());
 
 

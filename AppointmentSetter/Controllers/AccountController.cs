@@ -21,11 +21,11 @@ namespace AppointmentSetter.Controllers
 
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
+        //public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        //{
+        //    UserManager = userManager;
+        //    SignInManager = signInManager;
+        //}
 
         public ApplicationSignInManager SignInManager
         {
@@ -164,8 +164,7 @@ namespace AppointmentSetter.Controllers
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                     //TODO ADD user insert
-                    var userRepo = new UserRepository();
-                    userRepo.setContext(new AppointmentDBContext());
+                    var userRepo = new UserRepository(new AppointmentDBContext());
                     var ApptUser = new User();
                     ApptUser.AppUserID = user.Id;
                     ApptUser.IsCustomer = true;

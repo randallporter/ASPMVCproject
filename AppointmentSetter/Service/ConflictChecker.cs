@@ -19,6 +19,11 @@ namespace AppointmentSetter.Service
 
         }
 
+        public void SetDataRepo(IAppointmentRepository repo)
+        {
+            _repo = repo;
+        }
+
         public Appointment GetAttenderConflict(User attender, DateTime start, DateTime end)
         {
             Appointment appointment = new Appointment();

@@ -18,16 +18,13 @@ namespace AppointmentSetter.Controllers
         private IUserRepository _ur;
         private IConflictChecker _cc;
 
-        public AppointmentController(IAppointmentRepository ar, IAppointmentTypeRepository atr, IUserRepository ur)
+        public AppointmentController(IAppointmentRepository ar, IAppointmentTypeRepository atr, IUserRepository ur, IConflictChecker cc)
         {
             var context = new AppointmentDBContext();
             _ar = ar;
             _atr = atr;
             _ur = ur;
-            _ar.setContext(context);
-            _atr.setContext(context);
-            _ur.setContext(context);
-            _cc = new ConflictChecker(_ar);
+            _cc = cc;
         }
 
         [Authorize]
