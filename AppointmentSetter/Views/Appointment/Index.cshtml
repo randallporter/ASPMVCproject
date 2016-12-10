@@ -7,10 +7,10 @@
 
 <h2>My Appointment List</h2>
 
-<p>
+<div class="well">
     @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table table-hover table-striped">
+</div>
+<table class="table table-hover table-striped table-responsive">
     <tbody>
         <tr>
             <th>
@@ -36,7 +36,7 @@
 
         @foreach (var item in Model)
         {
-            <tr>
+            <tr class="SiteRow">
                 <td>
                     @String.Format("{0:f}", item.StartDate)
                 </td>
