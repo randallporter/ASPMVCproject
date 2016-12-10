@@ -1,5 +1,6 @@
 ﻿using AppointmentSetter.DataAccess;
 using AppointmentSetter.Models;
+using AppointmentSetter.Service;
 using AppointmentSetter.ViewModels;
 using Microsoft.AspNet.Identity;
 using System;
@@ -15,6 +16,7 @@ namespace AppointmentSetter.Controllers
         private IAppointmentRepository _ar;
         private IAppointmentTypeRepository _atr;
         private IUserRepository _ur;
+        private IConflictChecker _cc;
 
         public AppointmentController(IAppointmentRepository ar, IAppointmentTypeRepository atr, IUserRepository ur)
         {
@@ -25,6 +27,7 @@ namespace AppointmentSetter.Controllers
             _ar.setContext(context);
             _atr.setContext(context);
             _ur.setContext(context);
+            _cc = new ConflictChecker(_ar);
         }
 
         [Authorize]
@@ -81,33 +84,29 @@ namespace AppointmentSetter.Controllers
                 EndDate = viewModel.GetStartTime().Add(apptType.AppointmentLength)
             };
 
-            //var conflictAppointmentAttender = new Service.ConflictChecker(_ar)
-            //    .GetAttenderConflict(appointment.appointmentAttender,
-            //    appointment.StartDate,
-            //    appointment.EndDate);
-            //var conflictAppointmentSetter = new Service.ConflictChecker(_ar)
-            //    .GetSetterConflict(appointment.appointmentAttender,
-            //    appointment.StartDate,
-            //    appointment.EndDate);
+            var conflictAppointmentAttender = _cc
+                .GetAttenderConflict(appointment.appointmentAttender,
+                appointment.StartDate,
+                appointment.EndDate);
+            var conflictAppointmentSetter = _cc
+                .GetSetterConflict(appointment.appointmentAttender,
+                appointment.StartDate,
+                appointment.EndDate);
 
+            if (conflictAppointmentAttender == null && conflictAppointmentSetter == null)
+            {
+                _ar.InsertOrUpdate(appointment);
+                _ar.Save();
+                return RedirectToAction("Index", "Appointment");
+            }
+            else
+            {
+                ViewBag.Error = "Conflict in Time, please select another time.";
+                viewModel.AppointmentTypes = _atr.All.ToList();
+                return View("Create", viewModel);
+            }
 
-            //if (conflictAppointmentAttender == null && conflictAppointmentSetter == null)
-            //{
-            //    _ar.InsertOrUpdate(appointment);
-            //    _ar.Save();
-            //    return RedirectToAction("Index", "Appointment");
-            //}
-            //else
-            //{
-            //    ViewBag.Error = "Conflict in Time, please select another time.";
-            //    viewModel.AppointmentTypes = _atr.All.ToList();
-            //    return View("Create", viewModel);
-            //}
-
-            _ar.InsertOrUpdate(appointment);
-            _ar.Save();
-            return RedirectToAction("Index", "Appointment");
-
+            
         }
 
         // GET: Appointments/Details/5

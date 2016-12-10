@@ -14,7 +14,6 @@ namespace AppointmentSetter.Service
         public ConflictChecker(IAppointmentRepository repo)
         {
             _repo = repo;
-            repo.setContext(new AppointmentDBContext());
             EndBuffer = new TimeSpan(1, 0, 0);
             StartBuffer = new TimeSpan(1, 0, 0);
 
