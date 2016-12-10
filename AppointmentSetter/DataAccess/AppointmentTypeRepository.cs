@@ -8,12 +8,18 @@ namespace AppointmentSetter.DataAccess
 {
     public class AppointmentTypeRepository : IAppointmentTypeRepository
     {
-        private readonly AppointmentDBContext _context;
+        private AppointmentDBContext _context;
 
-        public AppointmentTypeRepository(AppointmentDBContext context)
+        public AppointmentTypeRepository()
+        {
+
+        }
+
+        public void setContext(AppointmentDBContext context)
         {
             _context = context;
         }
+
         public IQueryable<AppointmentType> All
         {
             get { return _context.AppointmentTypes; }

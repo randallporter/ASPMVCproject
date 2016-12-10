@@ -6,6 +6,7 @@ namespace AppointmentSetter.DataAccess
 {
     public interface IEntityRepository<T> : IDisposable
     {
+        void setContext(AppointmentDBContext context);
         IQueryable<T> All { get; }
         IQueryable<T> AllIncluding(params Expression<Func<T, object>>[] includeProperties);
         T Find(int id);

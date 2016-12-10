@@ -110,3 +110,9 @@ C:\Users\chris_000\Desktop\School OIT\OIT\CST 356\labs\FinalProject\ASPMVCprojec
 C:\Users\chris_000\Desktop\School OIT\OIT\CST 356\labs\FinalProject\ASPMVCproject\AppointmentSetter.Tests\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
 C:\Users\chris_000\Desktop\School OIT\OIT\CST 356\labs\FinalProject\ASPMVCproject\AppointmentSetter.Tests\bin\Debug\EntityFramework.xml
 C:\Users\chris_000\Desktop\School OIT\OIT\CST 356\labs\FinalProject\ASPMVCproject\AppointmentSetter.Tests\bin\Debug\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\chris_000\Desktop\School OIT\OIT\CST 356\labs\FinalProject\ASPMVCproject\AppointmentSetter.Tests\bin\Debug\SimpleInjector.dll
+C:\Users\chris_000\Desktop\School OIT\OIT\CST 356\labs\FinalProject\ASPMVCproject\AppointmentSetter.Tests\bin\Debug\SimpleInjector.Integration.Web.dll
+C:\Users\chris_000\Desktop\School OIT\OIT\CST 356\labs\FinalProject\ASPMVCproject\AppointmentSetter.Tests\bin\Debug\SimpleInjector.Integration.Web.Mvc.dll
+C:\Users\chris_000\Desktop\School OIT\OIT\CST 356\labs\FinalProject\ASPMVCproject\AppointmentSetter.Tests\bin\Debug\SimpleInjector.xml
+C:\Users\chris_000\Desktop\School OIT\OIT\CST 356\labs\FinalProject\ASPMVCproject\AppointmentSetter.Tests\bin\Debug\SimpleInjector.Integration.Web.xml
+C:\Users\chris_000\Desktop\School OIT\OIT\CST 356\labs\FinalProject\ASPMVCproject\AppointmentSetter.Tests\bin\Debug\SimpleInjector.Integration.Web.Mvc.xml

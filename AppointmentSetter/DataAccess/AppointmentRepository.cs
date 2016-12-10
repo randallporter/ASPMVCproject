@@ -10,10 +10,16 @@ namespace AppointmentSetter.DataAccess
     {
         public AppointmentDBContext _context;
 
-        public AppointmentRepository(AppointmentDBContext context)
+        public AppointmentRepository()
+        {
+            
+        }
+
+        public void setContext(AppointmentDBContext context)
         {
             _context = context;
         }
+
         public IQueryable<Appointment> All
         {
             get { return _context.Appointments; }

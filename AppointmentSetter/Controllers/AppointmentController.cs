@@ -12,17 +12,20 @@ namespace AppointmentSetter.Controllers
 {
     public class AppointmentController : Controller
     {
-        private readonly IAppointmentRepository _ar;
-        private readonly IAppointmentTypeRepository _atr;
-        private readonly IUserRepository _ur;
-        private readonly AppointmentDBContext context;
+        private IAppointmentRepository _ar;
+        private IAppointmentTypeRepository _atr;
+        private IUserRepository _ur;
+        private AppointmentDBContext context;
 
-        public AppointmentController()
+        public AppointmentController(IAppointmentRepository ar, IAppointmentTypeRepository atr, IUserRepository ur)
         {
             context = new AppointmentDBContext();
-            _ar = new AppointmentRepository(context);
-            _atr = new AppointmentTypeRepository(context);
-            _ur = new UserRepository(context);
+            _ar = ar;
+            _atr = atr;
+            _ur = ur;
+            _ar.setContext(context);
+            _atr.setContext(context);
+            _ur.setContext(context);
         }
 
         [Authorize]
@@ -135,6 +138,7 @@ namespace AppointmentSetter.Controllers
 
                 _ar.InsertOrUpdate(appointment);
                 _ar.Save();
+                
                 return RedirectToAction("Index");
             }
             return View(appointmentEdit);
