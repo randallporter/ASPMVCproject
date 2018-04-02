@@ -14,7 +14,6 @@ namespace AppointmentSetter.DataAccess
         DbSet<Appointment> Appointments { get; set; }
         DbSet<AppointmentType> AppointmentTypes { get; set; }
         DbSet<User> Users { get; set; }
-
         DbEntityEntry Entry(object entity);
         int SaveChanges();
     }
